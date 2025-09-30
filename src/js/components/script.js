@@ -1,3 +1,9 @@
+import {
+  animateProgressBars,
+  setupNavigation,
+  setupHeaderButtons,
+} from "../../../tests/util/shared-functions.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   animateProgressBars();
 
@@ -7,65 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setupMissionCardHovers();
 });
-
-function animateProgressBars() {
-  const progressBars = document.querySelectorAll(".progress-fill");
-
-  progressBars.forEach((bar, index) => {
-    const targetWidth = bar.style.width;
-    bar.style.width = "0%";
-
-    setTimeout(() => {
-      bar.style.width = targetWidth;
-    }, index * 200 + 500);
-  });
-}
-
-function setupNavigation() {
-  const navLinks = document.querySelectorAll(".nav-link");
-
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      document.querySelectorAll(".nav-item").forEach((item) => {
-        item.classList.remove("active");
-      });
-
-      this.parentElement.classList.add("active");
-
-      console.log("Navegando para:", this.querySelector("span").textContent);
-    });
-  });
-}
-
-function setupHeaderButtons() {
-  const headerButtons = document.querySelectorAll(".header-btn");
-
-  headerButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      this.style.transform = "scale(0.95)";
-      setTimeout(() => {
-        this.style.transform = "scale(1.05)";
-      }, 100);
-      setTimeout(() => {
-        this.style.transform = "";
-      }, 200);
-
-      const icon = this.querySelector("i");
-      if (icon.classList.contains("fa-bell")) {
-        console.log("Notificações clicadas");
-        showNotification("Você tem 3 novas notificações!");
-      } else if (icon.classList.contains("fa-user")) {
-        console.log("Perfil do utilizador clicado");
-        showNotification("Perfil do utilizador");
-      } else if (icon.classList.contains("fa-th")) {
-        console.log("Menu de aplicações clicado");
-        showNotification("Menu de aplicações");
-      }
-    });
-  });
-}
 
 function setupMissionCardHovers() {
   const missionCards = document.querySelectorAll(".mission-card");
@@ -133,19 +80,6 @@ function showNotification(message) {
       document.body.removeChild(notification);
     }, 300);
   }, 3000);
-}
-
-function toggleTheme() {
-  const body = document.body;
-  const isDark = body.classList.contains("light-theme");
-
-  if (isDark) {
-    body.classList.remove("light-theme");
-    localStorage.setItem("theme", "dark");
-  } else {
-    body.classList.add("light-theme");
-    localStorage.setItem("theme", "light");
-  }
 }
 
 function loadSavedTheme() {

@@ -1,8 +1,0 @@
-:root {
-  --orange: #e53e3e;
-}
-
-.main-container {
-  background-color: var(--orange);
-  width: 100%;
-}
